@@ -10,7 +10,8 @@ This repository automatically closes pull requests from users who do not have wr
 
 - When a pull request is opened or reopened, a GitHub Actions workflow is triggered
 - The workflow checks the permission level of the PR author
-- If the author does not have write, maintain, or admin access, the PR is automatically closed with a comment
+- Bot accounts (like GitHub Apps and bots) are automatically allowed
+- If the author is a regular user without write, maintain, or admin access, the PR is automatically closed with a comment
 
 ### Workflow
 
@@ -19,5 +20,6 @@ The auto-close functionality is implemented via GitHub Actions workflow located 
 
 The workflow:
 1. Triggers on `pull_request_target` events (opened, reopened)
-2. Checks the PR author's permission level using GitHub API
-3. Closes the PR and adds a comment if the author lacks write access
+2. Checks if the PR author is a bot - if so, allows the PR
+3. For regular users, checks the PR author's permission level using GitHub API
+4. Closes the PR and adds a comment if the author lacks write access
