@@ -42,17 +42,28 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const number = context.payload.pull_request.number;
+            const pullRequestId = context.payload.pull_request.node_id;
 
-            await github.rest.pulls.update({
-              owner,
-              repo,
-              pull_number: number,
-              state: 'closed',
-            });
+            // Use GraphQL mutation to close PR with comment in a single operation
+            const mutation = `
+              mutation($pullRequestId: ID!, $comment: String!) {
+                closePullRequest(input: {pullRequestId: $pullRequestId}) {
+                  pullRequest {
+                    id
+                    closed
+                  }
+                }
+                addComment(input: {subjectId: $pullRequestId, body: $comment}) {
+                  commentEdge {
+                    node {
+                      id
+                    }
+                  }
+                }
+              }
+            `;
 
-            await github.rest.issues.createComment({
-              owner,
-              repo,
-              issue_number: number,
-              body: 'This repository accepts pull requests only from collaborators with write access.',
+            await github.graphql(mutation, {
+              pullRequestId: pullRequestId,
+              comment: 'This repository accepts pull requests only from collaborators with write access.',
             });
