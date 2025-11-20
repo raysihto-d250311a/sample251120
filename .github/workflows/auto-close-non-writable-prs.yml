@@ -13,18 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate token from GitHub App
-        id: generate-token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ secrets.AUTO_CLOSE_APP_ID }}
-          private-key: ${{ secrets.AUTO_CLOSE_PRIVATE_KEY }}
-
       - name: Get permission of PR author
         id: perm
         uses: actions/github-script@v7
         with:
-          github-token: ${{ steps.generate-token.outputs.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const user = context.payload.pull_request.user.login;
             const { owner, repo } = context.repo;
@@ -45,7 +38,7 @@ jobs:
           steps.perm.outputs.permission != 'admin'
         uses: actions/github-script@v7
         with:
-          github-token: ${{ steps.generate-token.outputs.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { owner, repo } = context.repo;
             const number = context.payload.pull_request.number;
