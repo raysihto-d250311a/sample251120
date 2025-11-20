@@ -20,7 +20,15 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const user = context.payload.pull_request.user.login;
+            const userType = context.payload.pull_request.user.type;
             const { owner, repo } = context.repo;
+
+            // Accept all bot accounts without checking permissions (simplified approach; all bots are allowed)
+            if (userType === 'Bot') {
+              core.info(`${user} is a bot - allowing PR`);
+              core.setOutput("permission", "admin");
+              return;
+            }
 
             const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
               owner,
