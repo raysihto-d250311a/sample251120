@@ -1,6 +1,6 @@
 # sample251120
 
-Dummy GitHub Repository for testing about auto-close non-writable-users' Pull Requests.
+A test repository for automatically closing pull requests from users without write access.
 
 ## Features
 
