@@ -65,26 +65,6 @@ Dependabot will:
 
 This ensures that workflow actions (like `actions/checkout`, `mathieudutour/github-tag-action`, etc.) stay current with the latest security patches and features.
 
-## Copilot Instructions
-
-This repository uses GitHub Copilot instruction files located in `.github/instructions/` to customize Copilot behavior.
-
-### Instruction Types
-
-Two types of instruction files are used:
-
-1. **Always-Active Instructions** (`.instructions.md`)
-   - These instructions are always active and Copilot follows them automatically
-   - Each file includes `**Instruction Type:** Always-Active` in the header
-   - Example: `language-settings.instructions.md` - configures language usage for Copilot interactions
-
-2. **On-Demand Instructions** (`.on-demand.instructions.md`)
-   - These instructions are only followed when explicitly requested by the user
-   - Each file includes `**Instruction Type:** On-Demand` in the header
-   - Example: `commit-history-reconstruction.on-demand.instructions.md` - provides guidance for commit history cleanup
-
-The instruction type is explicitly declared in each file's header to ensure Copilot correctly recognizes whether to apply the instructions automatically or only when requested.
-
 ## Contributing
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on branch naming, commit messages, and pull request titles.
