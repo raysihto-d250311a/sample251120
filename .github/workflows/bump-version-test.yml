@@ -25,6 +25,8 @@ jobs:
       changelog: ${{ steps.tag_version.outputs.changelog }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       
       - name: Bump version and push tag (dry-run)
         id: tag_version
@@ -49,6 +51,8 @@ jobs:
     needs: dry-run-tag
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       
       - name: Bump version and push tag
         id: tag_version

@@ -12,21 +12,20 @@ This repository automatically closes pull requests from users who do not have wr
 
 This repository includes a simplified workflow to test automatic version tagging functionality.
 
-### How it works
-
-- When a pull request is opened or reopened, a GitHub Actions workflow is triggered
-- The workflow checks the permission level of the PR author
-- Bot accounts (like GitHub Apps and bots) are automatically allowed
-- If the author is a regular user without write, maintain, or admin access, the PR is automatically closed with a comment
-
-### Workflows
+## Workflows
 
 #### Auto-close Pull Requests
 
 The auto-close functionality is implemented via GitHub Actions workflow located at:
 `.github/workflows/auto-close-non-writable-prs.yml`
 
-The workflow:
+**How it works:**
+- When a pull request is opened or reopened, a GitHub Actions workflow is triggered
+- The workflow checks the permission level of the PR author
+- Bot accounts (like GitHub Apps and bots) are automatically allowed
+- If the author is a regular user without write, maintain, or admin access, the PR is automatically closed with a comment
+
+**Workflow steps:**
 1. Triggers on `pull_request_target` events (opened, reopened)
 2. Checks if the PR author is a bot - if so, allows the PR
 3. For regular users, checks the PR author's permission level using GitHub API
