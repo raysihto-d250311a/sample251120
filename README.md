@@ -82,7 +82,9 @@ This repository uses GitHub Copilot custom instructions to customize Copilot beh
 
 GitHub Copilot automatically loads custom instructions from two locations:
 1. **`.github/copilot-instructions.md`**: Repository-wide instructions that apply to all files
-2. **`.github/instructions/*.instructions.md`**: Path-specific instruction files (must end with `.instructions.md` suffix; additional descriptors like `.on-demand` can be included before the suffix, e.g., `reconstruct-commit-history.on-demand.instructions.md`) that can target specific files using YAML frontmatter with `applyTo` glob patterns
+2. **`.github/instructions/*.instructions.md`**: Path-specific instruction files that can target specific files using YAML frontmatter with `applyTo` glob patterns
+   - Must end with `.instructions.md` suffix
+   - Additional descriptors can be included before the suffix (e.g., `reconstruct-commit-history.on-demand.instructions.md`)
 
 Both types of files are automatically loaded by Copilot - no manual inclusion or referencing is needed.
 
@@ -90,7 +92,7 @@ Both types of files are automatically loaded by Copilot - no manual inclusion or
 
 The `.github/copilot-instructions.md` file contains repository-wide instructions:
 - **Language Settings** (Always-Active): Configures language usage for Copilot interactions
-- **Commit History Reconstruction** (On-Demand): Reference to detailed instructions (see separate file)
+- **Commit History Reconstruction** (On-Demand): Reference to `reconstruct-commit-history.on-demand.instructions.md`
 
 ### Instruction Types
 
