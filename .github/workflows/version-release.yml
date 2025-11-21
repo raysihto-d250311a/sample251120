@@ -31,8 +31,10 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # append_to_pre_release_tag is only set for develop branch
-          append_to_pre_release_tag: ${{ github.ref == 'refs/heads/develop' && 'rc' || '' }}
+          # The action automatically determines if this is a prerelease based on branch
+          # develop branch (not in release_branches) will use this suffix
+          # main branch (in release_branches default: master,main) will ignore this
+          append_to_pre_release_tag: rc
           dry_run: true
       
       - name: Display dry-run results
@@ -58,8 +60,10 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # append_to_pre_release_tag is only set for develop branch
-          append_to_pre_release_tag: ${{ github.ref == 'refs/heads/develop' && 'rc' || '' }}
+          # The action automatically determines if this is a prerelease based on branch
+          # develop branch (not in release_branches) will use this suffix
+          # main branch (in release_branches default: master,main) will ignore this
+          append_to_pre_release_tag: rc
       
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
