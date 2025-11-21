@@ -20,8 +20,8 @@
   - 例: `docs(readme): add contributing guidelines`
 
 - **PR 説明**: マークダウンチェックリストを使用し、英語で記述
-  - `- [x]` completed items
-  - `- [ ]` pending items
+  - 例: `- [x] Task completed`
+  - 例: `- [ ] Task pending`
 
 ## 例
 
