@@ -117,7 +117,7 @@ Trigger with any of:
 - Final HEAD must match the current PR exactly.
 - No behavioral changes.
 - Use clear English commit messages.
-- Follow <a href="https://www.conventionalcommits.org/">Conventional Commits</a> format: `<type>(<scope>): <description>`
+- Follow [Conventional Commits](https://www.conventionalcommits.org/) format: `<type>(<scope>): <description>`
 
 ## Output
 
@@ -196,4 +196,4 @@ For a complex PR:
 
 ## Repository Conventions
 
-For branch naming, commit messages, and PR titles, please refer to <a>CONTRIBUTING.md</a>.
+For branch naming, commit messages, and PR titles, please refer to [CONTRIBUTING.md](CONTRIBUTING.md).
