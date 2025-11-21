@@ -1,7 +1,12 @@
 name: Bump version (test)
 
+# バージョンタグ付けワークフローの簡易版
+# 依存関係や機密情報を削除し、バージョンタグ付け機能のみを動作確認できるようにしたもの
+#
 # This is a simplified version of the version tagging workflow
-# for testing purposes, without dependencies and confidential information
+# for testing purposes, without dependencies and confidential information.
+# Removed: SSH keys, AWS credentials, ECR, Docker image building
+# Kept: Version tagging logic using mathieudutour/github-tag-action@v6.2
 on:
   push:
     branches:
