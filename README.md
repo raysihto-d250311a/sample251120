@@ -119,7 +119,7 @@ The Language Settings (in `.github/copilot-instructions.md`) configure:
 The `.github/instructions/` directory can contain path-specific instruction files that use YAML frontmatter to target specific files or directories. Currently contains:
 - `reconstruct-commit-history.on-demand.instructions.md` - commit history cleanup guidance (On-Demand)
 
-These files are automatically loaded by GitHub Copilot when working on matching files.
+These files are automatically loaded by GitHub Copilot when working on matching files (for path-specific instructions) or in all contexts (for repository-wide instructions).
 
 ## Contributing
 
