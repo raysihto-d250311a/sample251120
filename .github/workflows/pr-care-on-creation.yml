@@ -1,6 +1,7 @@
+---
 name: pr-care-on-creation
 
-on:
+'on':
   pull_request_target:
     types: [opened, reopened]
 
@@ -23,14 +24,16 @@ jobs:
             const userType = context.payload.pull_request.user.type;
             const { owner, repo } = context.repo;
 
-            // Accept all bot accounts without checking permissions (simplified approach; all bots are allowed)
+            // Accept all bot accounts without checking permissions
+            // (simplified approach; all bots are allowed)
             if (userType === 'Bot') {
               core.info(`${user} is a bot - allowing PR`);
               core.setOutput("permission", "admin");
               return;
             }
 
-            const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+            const { data } =
+              await github.rest.repos.getCollaboratorPermissionLevel({
               owner,
               repo,
               username: user,
@@ -52,7 +55,8 @@ jobs:
             const number = context.payload.pull_request.number;
             const pullRequestId = context.payload.pull_request.node_id;
 
-            // Use GraphQL mutation to close PR with comment in a single operation
+            // Use GraphQL mutation to close PR with comment
+            // in a single operation
             const mutation = `
               mutation($pullRequestId: ID!, $comment: String!) {
                 closePullRequest(input: {pullRequestId: $pullRequestId}) {
@@ -73,7 +77,9 @@ jobs:
 
             await github.graphql(mutation, {
               pullRequestId: pullRequestId,
-              comment: 'This repository accepts pull requests only from collaborators with write access.',
+              comment: >-
+                This repository accepts pull requests only from
+                collaborators with write access.',
             });
 
       - name: Auto-assign PR author if no assignees
@@ -90,21 +96,29 @@ jobs:
             const pullRequestAuthor = context.payload.pull_request.user.login;
             const currentAssignees = context.payload.pull_request.assignees;
 
-            core.info(`PR #${pullRequestNumber} - Author: ${pullRequestAuthor}`);
+            core.info(
+              `PR #${pullRequestNumber} - Author: ${pullRequestAuthor}`
+            );
             core.info(`Current assignees count: ${currentAssignees.length}`);
 
             // assignee が空の場合のみ、PR 作成者を assignee として設定
             if (currentAssignees.length === 0) {
-              core.info(`No assignees found. Assigning PR author: ${pullRequestAuthor}`);
-              
+              core.info(
+                `No assignees found. Assigning PR author: ${pullRequestAuthor}`
+              );
               await github.rest.issues.addAssignees({
                 owner,
                 repo,
                 issue_number: pullRequestNumber,
                 assignees: [pullRequestAuthor],
               });
-              
-              core.info(`Successfully assigned ${pullRequestAuthor} to PR #${pullRequestNumber}`);
+
+              core.info(
+                `Successfully assigned ${pullRequestAuthor} ` +
+                `to PR #${pullRequestNumber}`
+              );
             } else {
-              core.info('PR already has assignees. Skipping auto-assignment.');
+              core.info(
+                'PR already has assignees. Skipping auto-assignment.'
+              );
             }
