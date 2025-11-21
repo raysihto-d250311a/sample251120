@@ -51,6 +51,21 @@ This workflow demonstrates automatic version tagging without dependencies on ext
 
 This is a simplified version extracted from a more complex production workflow that includes Docker image building and AWS deployment steps.
 
+## Dependency Management
+
+### Dependabot for GitHub Actions
+
+This repository uses Dependabot to automatically keep GitHub Actions dependencies up to date. The configuration is located at:
+`.github/dependabot.yml`
+
+Dependabot will:
+- Check for updates to GitHub Actions weekly
+- Automatically create pull requests for version updates
+- Label PRs with `dependencies` and `github-actions` tags
+- Limit open PRs to 10 to avoid overwhelming the repository
+
+This ensures that workflow actions (like `actions/checkout`, `mathieudutour/github-tag-action`, etc.) stay current with the latest security patches and features.
+
 ## Contributing Guidelines
 
 ### Branch Naming Convention
