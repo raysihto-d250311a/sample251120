@@ -96,14 +96,14 @@ jobs:
             // assignee が空の場合のみ、PR 作成者を assignee として設定
             if (currentAssignees.length === 0) {
               core.info(`No assignees found. Assigning PR author: ${pullRequestAuthor}`);
-              
+
               await github.rest.issues.addAssignees({
                 owner,
                 repo,
                 issue_number: pullRequestNumber,
                 assignees: [pullRequestAuthor],
               });
-              
+
               core.info(`Successfully assigned ${pullRequestAuthor} to PR #${pullRequestNumber}`);
             } else {
               core.info('PR already has assignees. Skipping auto-assignment.');
