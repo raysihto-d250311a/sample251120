@@ -65,6 +65,28 @@ Dependabot will:
 
 This ensures that workflow actions (like `actions/checkout`, `mathieudutour/github-tag-action`, etc.) stay current with the latest security patches and features.
 
+## Copilot Instructions
+
+This repository uses GitHub Copilot instruction files located in `.github/instructions/` to customize Copilot behavior.
+
+### Instruction Types
+
+Two types of instruction files are used:
+
+1. **Always-Active Instructions** (`.instructions.md`)
+   - These instructions are always active and Copilot follows them automatically
+   - Example: `language-settings.instructions.md` - configures language usage for Copilot interactions
+
+2. **On-Demand Instructions** (`.on-demand.instructions.md`)
+   - These instructions are only followed when explicitly requested by the user
+   - Example: `commit-history-reconstruction.on-demand.instructions.md` - provides guidance for commit history cleanup
+
+### Language Settings
+
+The `language-settings.instructions.md` file configures:
+- Copilot interactions use the same language as the user's prompt
+- Repository outputs (commits, PRs, code) always use English as the standard language
+
 ## Contributing
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on branch naming, commit messages, and pull request titles.
