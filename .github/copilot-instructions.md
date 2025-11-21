@@ -4,14 +4,14 @@ This file contains custom instructions for GitHub Copilot to follow when working
 
 ---
 
-# Language Settings
+## Language Settings
 
 **Instruction Type:** Always-Active  
 **Description:** This instruction is always active and must be followed in every Copilot session automatically.
 
 Use the same language for Copilot interactions as the user uses in their prompts.
 
-## Basic Rules
+### Basic Rules
 
 - **Copilot Interactions**: Use the same language as the user's prompt for all responses, explanations, and review feedback
 - **Repository Outputs**: Always use English for commit messages, PR titles, PR descriptions, checklists, code comments, and error messages
@@ -19,7 +19,7 @@ Use the same language for Copilot interactions as the user uses in their prompts
   - User's prompt language: Copilot interactions, instruction responses, review feedback
   - English: Standard language for all repository outputs (commits, PRs, code, etc.)
 
-## Progress Reporting Format
+### Progress Reporting Format
 
 When using the `report_progress` tool, follow this format:
 
@@ -32,9 +32,9 @@ When using the `report_progress` tool, follow this format:
   - Example: `- [x] Task completed`
   - Example: `- [ ] Task pending`
 
-## Examples
+### Examples
 
-### Progress Report Example (English)
+#### Progress Report Example (English)
 
 Commit message:
 ```
@@ -50,7 +50,7 @@ PR description:
 - [ ] Review and finalize
 ```
 
-### Copilot Interaction Examples
+#### Copilot Interaction Examples
 
 If user prompts in Japanese:
 
@@ -76,7 +76,7 @@ I've explored the repository. I'll create a new configuration file in `.github/i
 リポジトリを探索しました。`.github/instructions` ディレクトリに新しい設定ファイルを作成します。
 ```
 
-## Notes
+### Notes
 
 - Repository "outputs" (commits, PRs, code, documentation) must use English as the standard language
 - Copilot "interactions" (responses, explanations, review feedback) should match the user's prompt language
@@ -85,7 +85,7 @@ I've explored the repository. I'll create a new configuration file in `.github/i
 
 ---
 
-# Commit History Reconstruction Instructions
+## Commit History Reconstruction Instructions
 
 **Instruction Type:** On-Demand  
 **Description:** This instruction should only be followed when the user explicitly requests commit history reconstruction. Do not apply these instructions automatically.
