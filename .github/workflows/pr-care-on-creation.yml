@@ -79,7 +79,7 @@ jobs:
               pullRequestId: pullRequestId,
               comment: >-
                 This repository accepts pull requests only from
-                collaborators with write access.',
+                collaborators with write access.
             });
 
       - name: Auto-assign PR author if no assignees
