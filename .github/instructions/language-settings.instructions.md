@@ -1,5 +1,8 @@
 # Language Settings
 
+**Instruction Type:** Always-Active  
+**Description:** This instruction is always active and must be followed in every Copilot session automatically.
+
 Use the same language for Copilot interactions as the user uses in their prompts.
 
 ## Basic Rules
