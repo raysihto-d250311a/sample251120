@@ -76,7 +76,7 @@ Two types of instruction files are used:
 1. **Always-Active Instructions** (`.instructions.md`)
    - These instructions are always active and Copilot follows them automatically
    - Each file includes `**Instruction Type:** Always-Active` in the header
-   - Example: `language-settings.instructions.md` - configures language usage for Copilot interactions
+   - Example: e.g. `language-settings.instructions.md` - configures language usage for Copilot interactions
 
 2. **On-Demand Instructions** (`.on-demand.instructions.md`)
    - These instructions are only followed when explicitly requested by the user
