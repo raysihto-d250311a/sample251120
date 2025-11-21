@@ -53,16 +53,16 @@ When organizing commits for this repository, follow these guidelines:
 
 ### Key Principles
 
-1. **Separate preparation from main modification**: When changes require preparation, split them into a preparation commit followed by a main modification commit
+1. **Separate preparation from main change**: When changes require preparation, split them into a preparation commit followed by a main change commit
 2. **Group related changes**: All preparation changes should be grouped together; all main feature changes should be grouped together
-3. **Documentation follows code**: Documentation about infrastructure and system organization belongs in preparation commits; documentation about specific features belongs in main modification commits
+3. **Documentation follows code**: Documentation about infrastructure and system organization belongs in preparation commits; documentation about specific features belongs in main change commits
 4. **Clear commit boundaries**: Each commit should have a distinct, coherent purpose
 
 ### Example
 
 For a PR adding a language configuration system:
 - **Preparation commit**: Add instruction type metadata to existing files, update documentation with system structure explanation
-- **Main modification commit**: Add new feature files, update documentation with feature-specific usage information
+- **Main change commit**: Add new feature files, update documentation with feature-specific usage information
 
 ## Repository Conventions
 
