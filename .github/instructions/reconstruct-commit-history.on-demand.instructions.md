@@ -41,7 +41,7 @@ Trigger with any of:
   2. After reapply (should show **no diff**):
      - `https://github.com/OWNER/REPO/compare/BEFORE_REVERT_HASH..FEATURE_BRANCH`
 - **Additionally, provide** (so a human can open this as a new PR if needed):
-  1. Suggested feature-branch name (follow project naming guidelines).
+  1. Suggested feature-branch name (follow project naming guidelines: `{type}/{scope}/{summary_in_snake_case}` format).
   2. Suggested PR title (follow project title guidelines).
   3. Suggested PR description in a markdown code block, summarizing the reconstructed commit set and its purpose.
 
