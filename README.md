@@ -4,9 +4,11 @@ A test repository for testing GitHub Actions workflows.
 
 ## Features
 
-### Auto-close Pull Requests
+### Pull Request Care on Creation
 
-This repository automatically closes pull requests from users who do not have write access (collaborators with write, maintain, or admin permissions).
+This repository provides automated care and follow-up for pull requests when they are created:
+- Automatically closes pull requests from users who do not have write access (collaborators with write, maintain, or admin permissions)
+- Automatically assigns the PR author as the assignee when a pull request is created without any assignees (for PRs from users with write access)
 
 ### Version Tagging Test
 
@@ -14,22 +16,24 @@ This repository includes a simplified workflow to test automatic version tagging
 
 ## Workflows
 
-### Auto-close Pull Requests
+### Pull Request Care on Creation
 
-The auto-close functionality is implemented via GitHub Actions workflow located at:
-`.github/workflows/auto-close-non-writable-prs.yml`
+The PR care functionality is implemented via GitHub Actions workflow located at:
+`.github/workflows/pr-care-on-creation.yml`
 
 **How it works:**
 - When a pull request is opened or reopened, a GitHub Actions workflow is triggered
 - The workflow checks the permission level of the PR author
 - Bot accounts (like GitHub Apps and bots) are automatically allowed
 - If the author is a regular user without write, maintain, or admin access, the PR is automatically closed with a comment
+- For PRs from users with write access (including bot accounts), if the PR has no assignees, the workflow automatically assigns the PR author as the assignee. This means bot accounts may also be auto-assigned as PR assignees if they open a PR without any assignees.
 
 **Workflow steps:**
 1. Triggers on `pull_request_target` events (opened, reopened)
 2. Checks if the PR author is a bot - if so, allows the PR
 3. For regular users, checks the PR author's permission level using GitHub API
 4. Closes the PR and adds a comment if the author lacks write access
+5. For PRs with write access, checks if the PR has any assignees and assigns the PR author if none exist
 
 ### Version Tagging Test
 
@@ -65,62 +69,32 @@ Dependabot will:
 
 This ensures that workflow actions (like `actions/checkout`, `mathieudutour/github-tag-action`, etc.) stay current with the latest security patches and features.
 
-## Contributing Guidelines
+## Copilot Instructions
 
-### Branch Naming Convention
+This repository uses GitHub Copilot instruction files located in `.github/instructions/` to customize Copilot behavior.
 
-When creating a new branch, use the following format:
+### Instruction Types
 
-```
-{type}/{scope}/{summary_in_snake_case}
-```
+Two types of instruction files are used:
 
-**Type:**
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, etc.)
-- `refactor`: Code refactoring
-- `test`: Adding or updating tests
-- `chore`: Maintenance tasks
+1. **Always-Active Instructions** (`.instructions.md`)
+   - These instructions are always active and Copilot follows them automatically
+   - Each file includes `**Instruction Type:** Always-Active` in the header
+   - Example: `language-settings.instructions.md` - configures language usage for Copilot interactions
 
-**Scope:**
-- A short identifier for the affected component or area (e.g., `workflow`, `readme`, `ci`)
+2. **On-Demand Instructions** (`.on-demand.instructions.md`)
+   - These instructions are only followed when explicitly requested by the user
+   - Each file includes `**Instruction Type:** On-Demand` in the header
+   - Example: `reconstruct-commit-history.on-demand.instructions.md` - provides guidance for commit history cleanup
 
-**Summary:**
-- A brief description in snake_case (e.g., `add_bot_handling`, `update_permissions`)
+The instruction type is explicitly declared in each file's header to ensure Copilot correctly recognizes whether to apply the instructions automatically or only when requested.
 
-**Examples:**
-- `fix/workflow/handle_bot_pr_authors`
-- `feat/ci/add_linting_workflow`
-- `docs/readme/add_contributing_guidelines`
+### Language Settings
 
-### Commit Message Format
+The `language-settings.instructions.md` file configures:
+- Copilot interactions use the same language as the user's prompt
+- Repository outputs (commits, PRs, code) always use English as the standard language
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/) format:
+## Contributing
 
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer]
-```
-
-**Examples:**
-- `fix(workflow): handle bot PR authors to prevent API error`
-- `feat(ci): add automated linting workflow`
-- `docs(readme): add contributing guidelines`
-
-### Pull Request Title
-
-PR titles should follow the same format as commit messages:
-
-```
-<type>(<scope>): <description>
-```
-
-**Examples:**
-- `fix(workflow): handle bot PR authors to prevent API error`
-- `feat(ci): add automated linting workflow`
-- `docs(readme): add contributing guidelines`
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on branch naming, commit messages, and pull request titles.
