@@ -82,9 +82,11 @@ This repository uses GitHub Copilot custom instructions to customize Copilot beh
 
 GitHub Copilot automatically loads custom instructions from two locations:
 1. **`.github/copilot-instructions.md`**: Repository-wide instructions that apply to all files
-2. **`.github/instructions/*.instructions.md`**: Path-specific instruction files that can target specific files using YAML frontmatter with `applyTo` glob patterns
+2. **`.github/instructions/*.instructions.md`**: Instruction files that:
    - Must end with `.instructions.md` suffix
    - Additional descriptors can be included before the suffix (e.g., `reconstruct-commit-history.on-demand.instructions.md`)
+   - Can optionally use YAML frontmatter with `applyTo` glob patterns to target specific files/directories
+   - Apply repository-wide if no YAML frontmatter targeting is specified
 
 Both types of files are automatically loaded by Copilot - no manual inclusion or referencing is needed.
 
@@ -114,12 +116,14 @@ The Language Settings (in `.github/copilot-instructions.md`) configure:
 - Copilot interactions use the same language as the user's prompt (e.g., Japanese prompts receive Japanese responses)
 - Repository outputs (commits, PRs, code) always use English as the standard language
 
-### Path-Specific Instructions
+### Additional Instructions Directory
 
-The `.github/instructions/` directory can contain path-specific instruction files that use YAML frontmatter to target specific files or directories. Currently contains:
-- `reconstruct-commit-history.on-demand.instructions.md` - commit history cleanup guidance (On-Demand)
+The `.github/instructions/` directory can contain additional instruction files. These files:
+- Are automatically loaded by GitHub Copilot in all contexts (repository-wide) by default
+- Can optionally use YAML frontmatter with `applyTo` patterns to target specific files or directories (when path-specific behavior is needed)
 
-These files are automatically loaded by GitHub Copilot when working on matching files.
+Currently contains:
+- `reconstruct-commit-history.on-demand.instructions.md` - commit history cleanup guidance (On-Demand, applies repository-wide)
 
 ## Contributing
 
