@@ -35,20 +35,25 @@ The PR care functionality is implemented via GitHub Actions workflow located at:
 4. Closes the PR and adds a comment if the author lacks write access
 5. For PRs with write access, checks if the PR has any assignees and assigns the PR author if none exist
 
-### Version Tagging Test
+### Version Tagging and Release
 
-A simplified version tagging workflow is located at:
-`.github/workflows/bump-version-test.yml`
+A unified version tagging and release workflow is located at:
+`.github/workflows/version-release.yml`
 
-This workflow demonstrates automatic version tagging without dependencies on external services or secrets:
-1. Triggers on push to `develop` branch or manually via `workflow_dispatch`
+This workflow automatically creates version tags and releases based on the branch:
+1. Triggers on push to `develop` or `main` branch, or manually via `workflow_dispatch`
 2. First runs a dry-run to preview what tag would be created
-3. Then creates the actual version tag with `rc` suffix for pre-releases
+3. Then creates the actual version tag
 4. Finally creates a GitHub release with the tag and changelog
+
+**Branch-specific behavior:**
+- **develop branch**: Creates pre-release tags with `rc` suffix (e.g., `v1.0.0-rc.0`) and marks releases as pre-releases
+- **main branch**: Creates production tags without `rc` suffix (e.g., `v1.0.0`) and marks releases as production releases
 
 **Key features:**
 - Uses `mathieudutour/github-tag-action@v6.2` for automatic version bumping
-- Appends `rc` to pre-release tags
+- Conditional logic with `github.ref` to differentiate between branches
+- For main branch releases, compares with the previous production release (non-rc tag) for changelog generation
 - Creates changelog automatically from commit messages
 - No external dependencies or secrets required (uses only `GITHUB_TOKEN`)
 
