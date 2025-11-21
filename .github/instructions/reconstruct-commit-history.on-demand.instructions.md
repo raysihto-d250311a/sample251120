@@ -6,6 +6,8 @@
 Before merging this PR, rebuild the commit history into a clear, logical form.
 Commits should serve as documentation for future readers, not as a work log.
 
+**IMPORTANT**: The first step is to create a revert commit that undoes all PR changes. This is a required step that must not be skipped. Only after the revert commit is created and verified should you proceed to reapply changes in logical commits.
+
 Trigger with any of:
 
 - `@copilot reconstruct-commit-history`  (primary)
@@ -16,7 +18,25 @@ Trigger with any of:
 
 ## Steps
 
-1. **Add one commit that fully reverts current PR changes** (restore base branch state).
+### Step 1: Create Revert Commit (REQUIRED - DO NOT SKIP)
+
+**CRITICAL**: You MUST create and commit a revert commit as the first step. This is not optional.
+
+1. **Create a single revert commit that completely reverts all PR changes**
+   - This commit MUST restore the codebase to match the base branch exactly
+   - Use `git revert` or manually undo all changes from the PR
+   - Verify that after this commit, there are NO differences between your branch and the base branch
+   - Example commit message: `revert: revert all PR changes for reconstruction`
+
+**Verification after Step 1:**
+- Run `git diff <base-branch>..HEAD` - this MUST show NO differences
+- The working tree should be identical to the base branch
+- All PR changes should be completely undone
+
+### Step 2: Reapply Changes in Logical Commits
+
+After completing Step 1 and verifying the revert, reapply all PR changes in well-organized commits:
+
 2. **Reapply all PR changes in commits grouped by logical responsibility:**
    - Each commit must have one coherent purpose ("what and why").
    - Create multiple preparation commits if there are multiple different preparation purposes.
@@ -34,7 +54,8 @@ Trigger with any of:
 
 ## Output
 
-- **List of new commits** (hash + subject).
+- **Confirmation that Step 1 revert commit was created** - state the commit hash and verify no diff with base branch
+- **List of all new commits** (hash + subject), starting with the revert commit
 - **Two GitHub compare URLs for verification** (replace OWNER, REPO, and hash placeholders with actual values):
   1. After revert (should show **no diff**):
      - `https://github.com/OWNER/REPO/compare/BASE_BRANCH..AFTER_REVERT_HASH`
