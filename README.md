@@ -4,13 +4,11 @@ A test repository for testing GitHub Actions workflows.
 
 ## Features
 
-### Auto-close Pull Requests
+### Pull Request Care on Creation
 
-This repository automatically closes pull requests from users who do not have write access (collaborators with write, maintain, or admin permissions).
-
-### Auto-assign Pull Request Author
-
-This repository automatically assigns the PR author as the assignee when a pull request is created without any assignees.
+This repository provides automated care and follow-up for pull requests when they are created:
+- Automatically closes pull requests from users who do not have write access (collaborators with write, maintain, or admin permissions)
+- Automatically assigns the PR author as the assignee when a pull request is created without any assignees (for PRs from users with write access)
 
 ### Version Tagging Test
 
@@ -18,9 +16,9 @@ This repository includes a simplified workflow to test automatic version tagging
 
 ## Workflows
 
-### Auto-close Pull Requests
+### Pull Request Care on Creation
 
-The auto-close functionality is implemented via GitHub Actions workflow located at:
+The PR care functionality is implemented via GitHub Actions workflow located at:
 `.github/workflows/auto-close-non-writable-prs.yml`
 
 **How it works:**
@@ -28,27 +26,14 @@ The auto-close functionality is implemented via GitHub Actions workflow located 
 - The workflow checks the permission level of the PR author
 - Bot accounts (like GitHub Apps and bots) are automatically allowed
 - If the author is a regular user without write, maintain, or admin access, the PR is automatically closed with a comment
+- For PRs from users with write access, if the PR has no assignees, the workflow automatically assigns the PR author as the assignee
 
 **Workflow steps:**
 1. Triggers on `pull_request_target` events (opened, reopened)
 2. Checks if the PR author is a bot - if so, allows the PR
 3. For regular users, checks the PR author's permission level using GitHub API
 4. Closes the PR and adds a comment if the author lacks write access
-
-### Auto-assign Pull Request Author
-
-The auto-assign functionality is implemented via GitHub Actions workflow located at:
-`.github/workflows/auto-assign-pr-author.yml`
-
-**How it works:**
-- When a pull request is opened or reopened, a GitHub Actions workflow is triggered
-- The workflow checks if the PR has any assignees
-- If the PR has no assignees, the workflow automatically assigns the PR author as the assignee
-
-**Workflow steps:**
-1. Triggers on `pull_request_target` events (opened, reopened)
-2. Checks if the PR has any assignees
-3. If no assignees are found, assigns the PR author to the PR
+5. For PRs with write access, checks if the PR has any assignees and assigns the PR author if none exist
 
 ### Version Tagging Test
 
