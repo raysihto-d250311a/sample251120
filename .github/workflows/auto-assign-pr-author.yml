@@ -1,0 +1,43 @@
+name: auto-assign-pr-author
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+# PR に assignee を設定するために pull-requests: write が必要
+permissions:
+  pull-requests: write
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Auto-assign PR author if no assignees
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const pullRequestNumber = context.payload.pull_request.number;
+            const pullRequestAuthor = context.payload.pull_request.user.login;
+            const currentAssignees = context.payload.pull_request.assignees;
+
+            core.info(`PR #${pullRequestNumber} - Author: ${pullRequestAuthor}`);
+            core.info(`Current assignees count: ${currentAssignees.length}`);
+
+            // assignee が空の場合のみ、PR 作成者を assignee として設定
+            if (currentAssignees.length === 0) {
+              core.info(`No assignees found. Assigning PR author: ${pullRequestAuthor}`);
+              
+              await github.rest.issues.addAssignees({
+                owner,
+                repo,
+                issue_number: pullRequestNumber,
+                assignees: [pullRequestAuthor],
+              });
+              
+              core.info(`Successfully assigned ${pullRequestAuthor} to PR #${pullRequestNumber}`);
+            } else {
+              core.info('PR already has assignees. Skipping auto-assignment.');
+            }
