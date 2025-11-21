@@ -14,7 +14,7 @@ This repository includes a simplified workflow to test automatic version tagging
 
 ## Workflows
 
-#### Auto-close Pull Requests
+### Auto-close Pull Requests
 
 The auto-close functionality is implemented via GitHub Actions workflow located at:
 `.github/workflows/auto-close-non-writable-prs.yml`
@@ -31,7 +31,7 @@ The auto-close functionality is implemented via GitHub Actions workflow located 
 3. For regular users, checks the PR author's permission level using GitHub API
 4. Closes the PR and adds a comment if the author lacks write access
 
-#### Version Tagging Test
+### Version Tagging Test
 
 A simplified version tagging workflow is located at:
 `.github/workflows/bump-version-test.yml`
