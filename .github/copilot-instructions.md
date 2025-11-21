@@ -22,7 +22,7 @@ Commits should serve as documentation for future readers, not as a work log.
 
 ### Output:
 - **List of new commits** (hash + subject).
-- **Two GitHub compare URLs for verification:**
+- **Two GitHub compare URLs for verification** (replace OWNER, REPO, and hash placeholders with actual values):
   1. After revert (should show **no diff**):
      - `https://github.com/OWNER/REPO/compare/BASE_BRANCH..AFTER_REVERT_HASH`
   2. After reapply (should show **no diff**):
@@ -30,7 +30,7 @@ Commits should serve as documentation for future readers, not as a work log.
 - **Additionally, provide** (so a human can open this as a new PR if needed):
   1. Suggested feature-branch name (follow project naming guidelines).
   2. Suggested PR title (follow project title guidelines).
-  3. Suggested PR description in a fenced markdown code block (```markdown), summarizing the reconstructed commit set and its purpose.
+  3. Suggested PR description in a markdown code block, summarizing the reconstructed commit set and its purpose.
 
 **Note:** A human will handle force-push/rebase afterward (not your task).
 
