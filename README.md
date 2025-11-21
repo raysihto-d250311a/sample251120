@@ -82,7 +82,7 @@ This repository uses GitHub Copilot custom instructions to customize Copilot beh
 
 GitHub Copilot automatically loads custom instructions from two locations:
 1. **`.github/copilot-instructions.md`**: Repository-wide instructions that apply to all files
-2. **`.github/instructions/*.instructions.md`**: Path-specific instructions that can target specific files using YAML frontmatter with `applyTo` glob patterns
+2. **`.github/instructions/*.instructions.md`**: Path-specific instruction files (must have `.instructions.md` suffix) that can target specific files using YAML frontmatter with `applyTo` glob patterns
 
 Both types of files are automatically loaded by Copilot - no manual inclusion or referencing is needed.
 
@@ -108,7 +108,7 @@ Two types of instructions are defined:
 
 ### Language Settings
 
-The Language Settings (in `.github/copilot-instructions.md`) configures:
+The Language Settings (in `.github/copilot-instructions.md`) configure:
 - Copilot interactions use the same language as the user's prompt (e.g., Japanese prompts receive Japanese responses)
 - Repository outputs (commits, PRs, code) always use English as the standard language
 
