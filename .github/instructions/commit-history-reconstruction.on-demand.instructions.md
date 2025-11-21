@@ -1,5 +1,8 @@
 # Commit History Reconstruction Instructions
 
+**Instruction Type:** On-Demand  
+**Description:** This instruction should only be followed when the user explicitly requests commit history reconstruction. Do not apply these instructions automatically.
+
 Before merging this PR, rebuild the commit history into a clear, logical form.
 Commits should serve as documentation for future readers, not as a work log.
 
