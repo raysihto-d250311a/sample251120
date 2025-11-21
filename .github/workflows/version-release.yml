@@ -1,4 +1,3 @@
----
 name: Version and Release
 
 # バージョンタグ付けとリリースの統合ワークフロー
@@ -8,7 +7,7 @@ name: Version and Release
 # This is a unified workflow for version tagging and releases
 # - develop branch: creates pre-releases with rc suffix (e.g., v1.0.0-rc.0)
 # - main branch: creates production releases without rc suffix (e.g., v1.0.0)
-'on':
+on:
   push:
     branches:
       - develop
