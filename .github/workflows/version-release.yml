@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      
+
       - name: Bump version and push tag (dry-run)
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.2
@@ -36,7 +36,7 @@ jobs:
           # main branch (in release_branches default: master,main) will ignore this
           append_to_pre_release_tag: rc
           dry_run: true
-      
+
       - name: Display dry-run results
         run: |
           echo "Branch: ${{ github.ref_name }}"
@@ -54,7 +54,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      
+
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.2
@@ -64,7 +64,7 @@ jobs:
           # develop branch (not in release_branches) will use this suffix
           # main branch (in release_branches default: master,main) will ignore this
           append_to_pre_release_tag: rc
-      
+
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
