@@ -196,4 +196,4 @@ For a complex PR:
 
 ## Repository Conventions
 
-For branch naming, commit messages, and PR titles, please refer to [CONTRIBUTING.md](CONTRIBUTING.md).
+For branch naming, commit messages, and PR titles, please refer to [CONTRIBUTING.md](../CONTRIBUTING.md).
