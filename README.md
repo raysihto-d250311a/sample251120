@@ -76,50 +76,29 @@ This ensures that workflow actions (like `actions/checkout`, `mathieudutour/gith
 
 ## Copilot Instructions
 
-This repository uses GitHub Copilot custom instructions to customize Copilot behavior.
-
-### How GitHub Copilot Loads Instructions
-
-GitHub Copilot automatically loads custom instructions from two locations:
-1. **`.github/copilot-instructions.md`**: Repository-wide instructions that apply to all files
-2. **`.github/instructions/*.instructions.md`**: Path-specific instruction files that can target specific files using YAML frontmatter with `applyTo` glob patterns
-   - Must end with `.instructions.md` suffix
-   - Additional descriptors can be included before the suffix (e.g., `reconstruct-commit-history.on-demand.instructions.md`)
-
-Both types of files are automatically loaded by Copilot - no manual inclusion or referencing is needed.
-
-### Main Instructions File
-
-The `.github/copilot-instructions.md` file contains repository-wide instructions:
-- **Language Settings** (Always-Active): Configures language usage for Copilot interactions
-- **Commit History Reconstruction** (On-Demand): Reference to `reconstruct-commit-history.on-demand.instructions.md`
+This repository uses GitHub Copilot instruction files located in `.github/instructions/` to customize Copilot behavior.
 
 ### Instruction Types
 
-Two types of instructions are defined:
+Two types of instruction files are used:
 
-1. **Always-Active Instructions**
-   - These instructions are always active and Copilot follows them automatically in every session
-   - Each section includes `**Instruction Type:** Always-Active` in the header
-   - Example: Language Settings - configures language usage for Copilot interactions
+1. **Always-Active Instructions** (`.instructions.md`)
+   - These instructions are always active and Copilot follows them automatically
+   - Each file includes `**Instruction Type:** Always-Active` in the header
+   - Example: `language-settings.instructions.md` - configures language usage for Copilot interactions
 
-2. **On-Demand Instructions**
+2. **On-Demand Instructions** (`.on-demand.instructions.md`)
    - These instructions are only followed when explicitly requested by the user
-   - Each section includes `**Instruction Type:** On-Demand` in the header
-   - Example: Commit History Reconstruction - provides guidance for commit history cleanup
+   - Each file includes `**Instruction Type:** On-Demand` in the header
+   - Example: `reconstruct-commit-history.on-demand.instructions.md` - provides guidance for commit history cleanup
+
+The instruction type is explicitly declared in each file's header to ensure Copilot correctly recognizes whether to apply the instructions automatically or only when requested.
 
 ### Language Settings
 
-The Language Settings (in `.github/copilot-instructions.md`) configure:
-- Copilot interactions use the same language as the user's prompt (e.g., Japanese prompts receive Japanese responses)
+The `language-settings.instructions.md` file configures:
+- Copilot interactions use the same language as the user's prompt
 - Repository outputs (commits, PRs, code) always use English as the standard language
-
-### Path-Specific Instructions
-
-The `.github/instructions/` directory can contain path-specific instruction files that use YAML frontmatter to target specific files or directories. Currently contains:
-- `reconstruct-commit-history.on-demand.instructions.md` - commit history cleanup guidance (On-Demand)
-
-These files are automatically loaded by GitHub Copilot when working on matching files.
 
 ## Contributing
 
