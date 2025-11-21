@@ -11,6 +11,3 @@ updates:
       - "github-actions"
     # Set a limit for open pull requests
     open-pull-requests-limit: 10
-    # Configure commit message prefix to use "chore" instead of "build"
-    commit-message:
-      prefix: "chore"
