@@ -80,7 +80,11 @@ This repository uses GitHub Copilot custom instructions to customize Copilot beh
 
 ### Main Instructions File
 
-The `.github/copilot-instructions.md` file contains all custom instructions, consolidating content from individual instruction files in `.github/instructions/` directory. This ensures that Copilot reliably follows the instructions in every session.
+The `.github/copilot-instructions.md` file serves as the entry point for all custom instructions. It contains:
+- **Language Settings** (Always-Active): Full instructions embedded directly for immediate application
+- **Commit History Reconstruction** (On-Demand): Reference to detailed instructions in `.github/instructions/`
+
+This approach ensures Copilot reliably follows the instructions while maintaining a single source of truth for each instruction set.
 
 ### Instruction Types
 
@@ -98,17 +102,17 @@ Two types of instructions are defined:
 
 ### Language Settings
 
-The Language Settings section configures:
+The Language Settings section (in `.github/copilot-instructions.md`) configures:
 - Copilot interactions use the same language as the user's prompt (e.g., Japanese prompts receive Japanese responses)
 - Repository outputs (commits, PRs, code) always use English as the standard language
 
-### Legacy Instruction Files
+### Detailed Instruction Files
 
-The `.github/instructions/` directory contains individual instruction files for reference:
-- `language-settings.instructions.md` - language configuration (consolidated into copilot-instructions.md)
-- `reconstruct-commit-history.on-demand.instructions.md` - commit history cleanup guidance (consolidated into copilot-instructions.md)
+The `.github/instructions/` directory contains detailed instruction files:
+- `language-settings.instructions.md` - complete language configuration documentation
+- `reconstruct-commit-history.on-demand.instructions.md` - detailed commit history cleanup guidance (referenced from copilot-instructions.md)
 
-These files are maintained for documentation purposes, but the active instructions are in `.github/copilot-instructions.md`.
+These files serve as the authoritative source for their respective instructions.
 
 ## Contributing
 
