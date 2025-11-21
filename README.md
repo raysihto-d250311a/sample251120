@@ -76,15 +76,21 @@ This ensures that workflow actions (like `actions/checkout`, `mathieudutour/gith
 
 ## Copilot Instructions
 
-This repository uses GitHub Copilot custom instructions to customize Copilot behavior. Instructions are configured in `.github/copilot-instructions.md`, which GitHub Copilot automatically loads when working in this repository.
+This repository uses GitHub Copilot custom instructions to customize Copilot behavior.
+
+### How GitHub Copilot Loads Instructions
+
+GitHub Copilot automatically loads custom instructions from two locations:
+1. **`.github/copilot-instructions.md`**: Repository-wide instructions that apply to all files
+2. **`.github/instructions/*.instructions.md`**: Path-specific instructions that can target specific files using YAML frontmatter with `applyTo` glob patterns
+
+Both types of files are automatically loaded by Copilot - no manual inclusion or referencing is needed.
 
 ### Main Instructions File
 
-The `.github/copilot-instructions.md` file serves as the entry point for all custom instructions. It contains:
-- **Language Settings** (Always-Active): Full instructions embedded directly for immediate application
-- **Commit History Reconstruction** (On-Demand): Reference to detailed instructions in `.github/instructions/`
-
-This approach ensures Copilot reliably follows the instructions while maintaining a single source of truth for each instruction set.
+The `.github/copilot-instructions.md` file contains repository-wide instructions:
+- **Language Settings** (Always-Active): Configures language usage for Copilot interactions
+- **Commit History Reconstruction** (On-Demand): Reference link for documentation purposes (actual instructions in separate file)
 
 ### Instruction Types
 
@@ -102,17 +108,16 @@ Two types of instructions are defined:
 
 ### Language Settings
 
-The Language Settings section (in `.github/copilot-instructions.md`) configures:
+The Language Settings (in `.github/copilot-instructions.md`) configures:
 - Copilot interactions use the same language as the user's prompt (e.g., Japanese prompts receive Japanese responses)
 - Repository outputs (commits, PRs, code) always use English as the standard language
 
-### Detailed Instruction Files
+### Path-Specific Instructions
 
-The `.github/instructions/` directory contains detailed instruction files:
-- `language-settings.instructions.md` - complete language configuration documentation
-- `reconstruct-commit-history.on-demand.instructions.md` - detailed commit history cleanup guidance (referenced from copilot-instructions.md)
+The `.github/instructions/` directory can contain path-specific instruction files that use YAML frontmatter to target specific files or directories. Currently contains:
+- `reconstruct-commit-history.on-demand.instructions.md` - commit history cleanup guidance (On-Demand)
 
-These files serve as the authoritative source for their respective instructions.
+These files are automatically loaded by GitHub Copilot when working on matching files.
 
 ## Contributing
 
