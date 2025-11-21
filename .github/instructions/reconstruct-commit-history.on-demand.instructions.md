@@ -56,11 +56,15 @@ After completing Step 1 and verifying the revert, reapply all PR changes in well
 
 - **Confirmation that Step 1 revert commit was created** - state the commit hash and verify no diff with base branch
 - **List of all new commits** (hash + subject), starting with the revert commit
-- **Two GitHub compare URLs for verification** (replace OWNER, REPO, and hash placeholders with actual values):
+- **Exactly two GitHub compare URLs for verification** (replace OWNER, REPO with actual values; use branch names, not commit hashes):
   1. After revert (should show **no diff**):
-     - `https://github.com/OWNER/REPO/compare/BASE_BRANCH..AFTER_REVERT_HASH`
+     - Compare base branch to revert commit: `https://github.com/OWNER/REPO/compare/BASE_BRANCH..AFTER_REVERT_HASH`
+     - Example: `https://github.com/owner/repo/compare/main..a1b2c3d`
   2. After reapply (should show **no diff**):
-     - `https://github.com/OWNER/REPO/compare/BEFORE_REVERT_HASH..FEATURE_BRANCH`
+     - Compare pre-revert state to feature branch: `https://github.com/OWNER/REPO/compare/BEFORE_REVERT_HASH..FEATURE_BRANCH`
+     - Example: `https://github.com/owner/repo/compare/d4e5f6g..feature-branch-name`
+  
+  **Important**: Provide exactly these two compare URLs, no more. Use actual branch names (e.g., `main`, `develop`, `feature/my-feature`) not commit hashes for BASE_BRANCH and FEATURE_BRANCH.
 - **Additionally, provide** (so a human can open this as a new PR if needed):
   1. Suggested feature-branch name (follow project naming guidelines: `{type}/{scope}/{summary_in_snake_case}` format).
   2. Suggested PR title (follow project title guidelines).
