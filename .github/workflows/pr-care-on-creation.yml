@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Get permission of PR author
         id: perm
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -44,7 +44,7 @@ jobs:
           steps.perm.outputs.permission != 'write' &&
           steps.perm.outputs.permission != 'maintain' &&
           steps.perm.outputs.permission != 'admin'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -81,7 +81,7 @@ jobs:
           steps.perm.outputs.permission == 'write' ||
           steps.perm.outputs.permission == 'maintain' ||
           steps.perm.outputs.permission == 'admin'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
