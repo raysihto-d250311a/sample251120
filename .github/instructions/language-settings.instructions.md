@@ -36,7 +36,7 @@ PR description:
 ```
 - [x] Understand the problem and repository structure
 - [x] Create language configuration file in `.github/instructions/`
-- [ ] Configure Copilot to use user's prompt language for interactions
+- [x] Update README documentation
 - [ ] Verify the changes work correctly
 - [ ] Review and finalize
 ```
