@@ -6,8 +6,6 @@
 Before merging this PR, rebuild the commit history into a clear, logical form.
 Commits should serve as documentation for future readers, not as a work log.
 
-**IMPORTANT**: The first step is to create a revert commit that undoes all PR changes. This is a required step that must not be skipped. Only after the revert commit is created and verified should you proceed to reapply changes in logical commits.
-
 Trigger with any of:
 
 - `@copilot reconstruct-commit-history`  (primary)
@@ -18,26 +16,8 @@ Trigger with any of:
 
 ## Steps
 
-### Step 1: Create Revert Commit (REQUIRED - DO NOT SKIP)
-
-**CRITICAL**: You MUST create and commit a revert commit as the first step. This is not optional.
-
-1. **Create a single revert commit that completely reverts all PR changes**
-   - This commit MUST restore the codebase to match the base branch exactly
-   - Use `git revert` or manually undo all changes from the PR
-   - Verify that after this commit, there are NO differences between your branch and the base branch
-   - Example commit message: `revert: revert all PR changes for reconstruction`
-
-**Verification after Step 1:**
-- Run `git diff <base-branch>..HEAD` - this MUST show NO differences
-- The working tree should be identical to the base branch
-- All PR changes should be completely undone
-
-### Step 2: Reapply Changes in Logical Commits
-
-After completing Step 1 and verifying the revert, reapply all PR changes in well-organized commits:
-
-1. **Reapply all PR changes in commits grouped by logical responsibility:**
+1. **Add one commit that fully reverts current PR changes** (restore base branch state).
+2. **Reapply all PR changes in commits grouped by logical responsibility:**
    - Each commit must have one coherent purpose ("what and why").
    - Create multiple preparation commits if there are multiple different preparation purposes.
    - Create multiple main change commits if there are multiple different main purposes.
@@ -54,25 +34,18 @@ After completing Step 1 and verifying the revert, reapply all PR changes in well
 
 ## Output
 
-- **Confirmation that Step 1 revert commit was created** - state the commit hash and verify no diff with base branch
-- **List of all new commits** (hash + subject), starting with the revert commit
-- **Exactly two GitHub compare URLs for verification**:
+- **List of new commits** (hash + subject).
+- **Two GitHub compare URLs for verification** (replace OWNER, REPO, and hash placeholders with actual values):
   1. After revert (should show **no diff**):
      - `https://github.com/OWNER/REPO/compare/BASE_BRANCH..AFTER_REVERT_HASH`
-     - Replace BASE_BRANCH with the actual branch name (e.g., `main`, `develop`)
-     - Replace AFTER_REVERT_HASH with the actual commit hash (e.g., `a1b2c3d`)
   2. After reapply (should show **no diff**):
      - `https://github.com/OWNER/REPO/compare/BEFORE_REVERT_HASH..FEATURE_BRANCH`
-     - Replace BEFORE_REVERT_HASH with the actual commit hash (e.g., `d4e5f6g`)
-     - Replace FEATURE_BRANCH with the actual branch name (e.g., `feature/my-feature`)
-  
-  **Important**: Provide exactly these two compare URLs, no more. Use actual branch names (not commit hashes) for BASE_BRANCH and FEATURE_BRANCH.
 - **Additionally, provide** (so a human can open this as a new PR if needed):
   1. Suggested feature-branch name (follow project naming guidelines: `{type}/{scope}/{summary_in_snake_case}` format).
   2. Suggested PR title (follow project title guidelines).
   3. Suggested PR description in a markdown code block, summarizing the reconstructed commit set and its purpose.
 
-**Note:** A human will handle force-push/rebase afterward (not your task). This note is for your understanding only—do not include it in your output.
+**Note:** A human will handle force-push/rebase afterward (not your task).
 
 ## Commit Organization Guidelines
 
