@@ -36,6 +36,37 @@ Commits should serve as documentation for future readers, not as a work log.
 
 **Note:** A human will handle force-push/rebase afterward (not your task).
 
+## Commit Organization Guidelines
+
+When organizing commits for this repository, follow these guidelines:
+
+### Preparation vs. Main Changes
+
+- **Preparation commits** should include:
+  - Refactoring of existing code or documentation
+  - Infrastructure changes that enable the main feature
+  - README.md updates about instruction types, file organization, or system structure
+  - Changes to existing files that add metadata or reorganize without adding new features
+
+- **Main change commits** should include:
+  - New features or functionality
+  - New instruction files
+  - README.md updates about specific features or usage (e.g., "Language Settings" section)
+  - Implementation of the primary purpose of the PR
+
+### Key Principles
+
+1. **Separate preparation from implementation**: First commit should prepare the codebase, second commit should implement the feature
+2. **Group related changes**: All preparation changes should be in the preparation commit, all main feature changes in the main commit
+3. **Documentation follows code**: Documentation about infrastructure goes in preparation, documentation about features goes in main change
+4. **Clear commit boundaries**: Each commit should have a distinct, coherent purpose
+
+### Example
+
+For a PR adding a language configuration system:
+- **Preparation commit**: Add instruction type metadata to existing files, update README with "Instruction Types" section explaining the system
+- **Main change commit**: Add language-settings.instructions.md file, update README with "Language Settings" section explaining the feature
+
 ## Repository Conventions
 
 For branch naming, commit messages, and PR titles, please refer to [CONTRIBUTING.md](../../CONTRIBUTING.md).
