@@ -6,6 +6,14 @@
 Before merging this PR, rebuild the commit history into a clear, logical form.
 Commits should serve as documentation for future readers, not as a work log.
 
+Trigger with any of:
+
+- `@copilot reconstruct-commit-history`  (primary)
+- `@copilot reconstruct-commits`         (alias)
+- `@copilot rebuild-commits`             (alias)
+- `@copilot rewrite-commits`             (alias)
+- `@copilot reorder-commits`             (alias)
+
 ## Steps
 
 1. **Add one commit that fully reverts current PR changes** (restore base branch state).
