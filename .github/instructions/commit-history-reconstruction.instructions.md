@@ -1,26 +1,25 @@
-# GitHub Copilot Instructions
-
-This file contains instructions for GitHub Copilot to help maintain consistency and quality in this repository.
-
-## Commit History Reconstruction Before Merge
+# Commit History Reconstruction Instructions
 
 Before merging this PR, rebuild the commit history into a clear, logical form.
 Commits should serve as documentation for future readers, not as a work log.
 
-### Steps:
+## Steps
+
 1. **Add one commit that fully reverts current PR changes** (restore base branch state).
 2. **Reapply all PR changes in commits grouped by logical responsibility:**
    - Each commit must have one coherent purpose ("what and why").
    - Avoid trivial commits; do not mix unrelated concerns or oversplit without reason.
    - Include tests and migrations in the same commit as their related feature.
 
-### Rules:
+## Rules
+
 - Final HEAD must match the current PR exactly.
 - No behavioral changes.
 - Use clear English commit messages.
 - Follow [Conventional Commits](https://www.conventionalcommits.org/) format: `<type>(<scope>): <description>`
 
-### Output:
+## Output
+
 - **List of new commits** (hash + subject).
 - **Two GitHub compare URLs for verification** (replace OWNER, REPO, and hash placeholders with actual values):
   1. After revert (should show **no diff**):
@@ -34,60 +33,6 @@ Commits should serve as documentation for future readers, not as a work log.
 
 **Note:** A human will handle force-push/rebase afterward (not your task).
 
-## Branch Naming Convention
+## Repository Conventions
 
-When creating a new branch, use the following format:
-
-```
-{type}/{scope}/{summary_in_snake_case}
-```
-
-**Type:**
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, etc.)
-- `refactor`: Code refactoring
-- `test`: Adding or updating tests
-- `chore`: Maintenance tasks
-
-**Scope:**
-- A short identifier for the affected component or area (e.g., `workflow`, `readme`, `ci`)
-
-**Summary:**
-- A brief description in snake_case (e.g., `add_bot_handling`, `update_permissions`)
-
-**Examples:**
-- `fix/workflow/handle_bot_pr_authors`
-- `feat/ci/add_linting_workflow`
-- `docs/readme/add_contributing_guidelines`
-
-## Commit Message Format
-
-Follow [Conventional Commits](https://www.conventionalcommits.org/) format:
-
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer]
-```
-
-**Examples:**
-- `fix(workflow): handle bot PR authors to prevent API error`
-- `feat(ci): add automated linting workflow`
-- `docs(readme): add contributing guidelines`
-
-## Pull Request Title
-
-PR titles should follow the same format as commit messages:
-
-```
-<type>(<scope>): <description>
-```
-
-**Examples:**
-- `fix(workflow): handle bot PR authors to prevent API error`
-- `feat(ci): add automated linting workflow`
-- `docs(readme): add contributing guidelines`
+For branch naming, commit messages, and PR titles, please refer to [CONTRIBUTING.md](../../CONTRIBUTING.md).
