@@ -20,9 +20,6 @@ jobs:
   # First job: dry-run to test what tag would be created
   dry-run-tag:
     runs-on: ubuntu-latest
-    outputs:
-      name: ${{ steps.tag_version.outputs.new_tag }}
-      changelog: ${{ steps.tag_version.outputs.changelog }}
     steps:
       - uses: actions/checkout@v4
         with:
