@@ -26,7 +26,7 @@ The PR care functionality is implemented via GitHub Actions workflow located at:
 - The workflow checks the permission level of the PR author
 - Bot accounts (like GitHub Apps and bots) are automatically allowed
 - If the author is a regular user without write, maintain, or admin access, the PR is automatically closed with a comment
-- For PRs from users with write access, if the PR has no assignees, the workflow automatically assigns the PR author as the assignee
+- For PRs from users with write access (including bot accounts), if the PR has no assignees, the workflow automatically assigns the PR author as the assignee. This means bot accounts may also be auto-assigned as PR assignees if they open a PR without any assignees.
 
 **Workflow steps:**
 1. Triggers on `pull_request_target` events (opened, reopened)
