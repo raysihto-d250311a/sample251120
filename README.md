@@ -35,12 +35,15 @@ The PR care functionality is implemented via GitHub Actions workflow located at:
 4. Closes the PR and adds a comment if the author lacks write access
 5. For PRs with write access, checks if the PR has any assignees and assigns the PR author if none exist
 
-### Version Tagging Test
+### Version Tagging and Release
 
+This repository includes two workflows for version management:
+
+#### Pre-release workflow (develop branch)
 A simplified version tagging workflow is located at:
 `.github/workflows/bump-version-test.yml`
 
-This workflow demonstrates automatic version tagging without dependencies on external services or secrets:
+This workflow demonstrates automatic version tagging for pre-releases:
 1. Triggers on push to `develop` branch or manually via `workflow_dispatch`
 2. First runs a dry-run to preview what tag would be created
 3. Then creates the actual version tag with `rc` suffix for pre-releases
@@ -50,9 +53,26 @@ This workflow demonstrates automatic version tagging without dependencies on ext
 - Uses `mathieudutour/github-tag-action@v6.2` for automatic version bumping
 - Appends `rc` to pre-release tags
 - Creates changelog automatically from commit messages
+- Marks releases as pre-releases on GitHub
+
+#### Production release workflow (main branch)
+A production release workflow is located at:
+`.github/workflows/release-on-main.yml`
+
+This workflow creates production releases when code is pushed to the `main` branch:
+1. Triggers on push to `main` branch or manually via `workflow_dispatch`
+2. First runs a dry-run to preview what tag would be created
+3. Then creates the actual version tag **without** `rc` suffix for production releases
+4. Finally creates a GitHub release with the tag and changelog
+
+**Key features:**
+- Uses `mathieudutour/github-tag-action@v6.2` for automatic version bumping
+- Creates production version tags without `rc` suffix
+- Compares with the previous production release (non-rc tag) for changelog generation
+- Marks releases as production releases on GitHub
 - No external dependencies or secrets required (uses only `GITHUB_TOKEN`)
 
-This is a simplified version extracted from a more complex production workflow that includes Docker image building and AWS deployment steps.
+Both workflows are simplified versions extracted from a more complex production workflow that includes Docker image building and AWS deployment steps.
 
 ## Dependency Management
 

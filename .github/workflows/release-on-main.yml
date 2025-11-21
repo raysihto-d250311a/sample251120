@@ -1,0 +1,68 @@
+name: Release on main
+
+# main ブランチへのプッシュで本番リリースを作成するワークフロー
+# RC なしのバージョンタグを作成し、前回の本番リリースとの差分でリリースノートを生成
+#
+# This workflow creates production releases when pushing to main branch
+# Creates version tags without rc suffix and generates release notes
+# comparing with the previous production release (non-rc tag)
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allow manual triggering
+
+permissions:
+  contents: write
+
+jobs:
+  # First job: dry-run to test what tag would be created
+  dry-run-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      
+      - name: Bump version and push tag (dry-run)
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: true
+          # Do not append rc for production releases
+          # The action will automatically find the previous non-prerelease tag
+      
+      - name: Display dry-run results
+        run: |
+          echo "New tag would be: ${{ steps.tag_version.outputs.new_tag }}"
+          echo "Previous tag: ${{ steps.tag_version.outputs.previous_tag }}"
+          echo "Changelog:"
+          echo "${{ steps.tag_version.outputs.changelog }}"
+
+  # Second job: actually create the tag and release
+  # This depends on dry-run-tag to ensure we see what would happen first
+  create-release:
+    runs-on: ubuntu-latest
+    needs: dry-run-tag
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Do not append rc for production releases
+          # The action will automatically compare with the previous non-prerelease tag
+      
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+          prerelease: false  # This is a production release
+          token: ${{ secrets.GITHUB_TOKEN }}
