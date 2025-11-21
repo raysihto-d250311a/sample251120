@@ -66,7 +66,7 @@ After completing Step 1 and verifying the revert, reapply all PR changes in well
   2. Suggested PR title (follow project title guidelines).
   3. Suggested PR description in a markdown code block, summarizing the reconstructed commit set and its purpose.
 
-**Note:** A human will handle force-push/rebase afterward (not your task).
+**Note:** A human will handle force-push/rebase afterward (not your task). This note is for your understanding only—do not include it in your output.
 
 ## Commit Organization Guidelines
 
