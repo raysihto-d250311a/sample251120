@@ -1,17 +1,18 @@
-name: Bump version (test)
+name: Version and Release
 
-# バージョンタグ付けワークフローの簡易版
-# 依存関係や機密情報を削除し、バージョンタグ付け機能のみを動作確認できるようにしたもの
+# バージョンタグ付けとリリースの統合ワークフロー
+# develop ブランチでは RC 付きのプレリリースを作成
+# main ブランチでは RC なしの本番リリースを作成
 #
-# This is a simplified version of the version tagging workflow
-# for testing purposes, without dependencies and confidential information.
-# Removed: SSH keys, AWS credentials, ECR, Docker image building
-# Kept: Version tagging logic using mathieudutour/github-tag-action@v6.2
+# This is a unified workflow for version tagging and releases
+# - develop branch: creates pre-releases with rc suffix (e.g., v1.0.0-rc.0)
+# - main branch: creates production releases without rc suffix (e.g., v1.0.0)
 on:
   push:
     branches:
       - develop
-  workflow_dispatch:  # Allow manual triggering for testing
+      - main
+  workflow_dispatch:  # Allow manual triggering
 
 permissions:
   contents: write
@@ -30,19 +31,20 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          append_to_pre_release_tag: rc
+          # append_to_pre_release_tag is only set for develop branch
+          append_to_pre_release_tag: ${{ github.ref == 'refs/heads/develop' && 'rc' || '' }}
           dry_run: true
       
       - name: Display dry-run results
         run: |
+          echo "Branch: ${{ github.ref_name }}"
           echo "New tag would be: ${{ steps.tag_version.outputs.new_tag }}"
+          echo "Previous tag: ${{ steps.tag_version.outputs.previous_tag }}"
           echo "Changelog:"
           echo "${{ steps.tag_version.outputs.changelog }}"
 
   # Second job: actually create the tag and release
   # This depends on dry-run-tag to ensure we see what would happen first
-  # Note: We must run github-tag-action again (not in dry-run mode) to actually create the tag
-  # The dry-run job only previews; it doesn't create anything
   create-release:
     runs-on: ubuntu-latest
     needs: dry-run-tag
@@ -56,7 +58,8 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          append_to_pre_release_tag: rc
+          # append_to_pre_release_tag is only set for develop branch
+          append_to_pre_release_tag: ${{ github.ref == 'refs/heads/develop' && 'rc' || '' }}
       
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
@@ -64,5 +67,6 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-          prerelease: true
+          # prerelease is true for develop branch, false for main branch
+          prerelease: ${{ github.ref == 'refs/heads/develop' }}
           token: ${{ secrets.GITHUB_TOKEN }}
