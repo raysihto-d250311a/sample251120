@@ -19,7 +19,7 @@ This repository includes a simplified workflow to test automatic version tagging
 ### Pull Request Care on Creation
 
 The PR care functionality is implemented via GitHub Actions workflow located at:
-`.github/workflows/auto-close-non-writable-prs.yml`
+`.github/workflows/pr-care-on-creation.yml`
 
 **How it works:**
 - When a pull request is opened or reopened, a GitHub Actions workflow is triggered
